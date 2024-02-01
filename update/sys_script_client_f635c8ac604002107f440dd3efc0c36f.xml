@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description/>
+        <field>u_requested_for</field>
+        <global>true</global>
+        <isolate_script>true</isolate_script>
+        <messages/>
+        <name>Glideform multiple things onChange</name>
+        <order/>
+        <script><![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+   if (isLoading || newValue === '') {
+      return;
+   }
+	
+	// do only if a new record
+	
+// 	if(g_form.isNewRecord())
+// 	{
+//		here we can write the whole code ..to ensure that it runs only when its a new record
+// 	}
+
+				// 1. this gives the sys id
+				var systemId= g_form.getUniqueValue();
+				alert("System id is"+systemId);
+				// 2. display the table's name
+				var tableName =g_form.getTableName();
+				g_form.addInfoMessage("Table name"+tableName);
+
+				//3. get the value of a field ;it shoudl be string
+				var state_here= g_form.getValue('state');
+
+					alert("State is"+state_here);
+
+
+				// 4. set the value of short description field
+				g_form.setValue('short_description','This is demo');
+
+				//5. set a field mandatory
+				g_form.setMandatory('priority',true);
+
+				// 6.add an option in a state field as Closed; we put a random number which is not already used as choice value 
+				g_form.addOption('state','25','demo');
+
+				// 7.delete option; from choice , we know Awaiting feedback is 16
+				g_form.removeOption('state','16');
+
+
+
+					// 8. getreference:to retrieve the entire record of a reference field/variable ie.. in this case: when you click Requested for in the                    form you see many additional information; if you want to bring any of that info on the form then we can use this.. 
+	//eg A: here for example we are                  tryong to bring the email to the form. 
+				
+				// when requestor name changes correspondong email should come
+				// call back is function which we just gave;it's an async function
+
+				var requestor_user = g_form.getReference('u_requested_for',callback);
+
+				function callback(requestor_user){
+					g_form.setValue('requestor_email',requestor_user.email);
+				}
+	
+	//eg B: alert the department of the requestor:
+	
+	var deptName = g_form.getReference('u_requested_for', callbackDept);
+	// this is giving in numbers not exact name
+	function callbackDept(deptName){
+		alert("Depart of requestor is :"+ deptName.department );
+	}
+
+				//9. addDecoration
+				g_form.addDecoration('priority','icon-activity','critical priority needs approval');
+
+				//10. flash; it should be negative to blink
+					g_form.flash('state','yellow',-20);
+		
+		//11. get SysID of last clicked UI action name
+			var lastClicked= g_form.getActionName();
+		alert("Last clicked sys id"+ lastClicked);
+		
+		
+
+
+
+	
+	
+   
+}]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-01-26 20:54:47</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>f635c8ac604002107f440dd3efc0c36f</sys_id>
+        <sys_name>Glideform multiple things onChange</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="NeedIt" source="x_58872_needit">6ead8e780f603200cd674f8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="NeedIt">6ead8e780f603200cd674f8ce1050ed1</sys_scope>
+        <sys_update_name>sys_script_client_f635c8ac604002107f440dd3efc0c36f</sys_update_name>
+        <table>x_58872_needit_needit</table>
+        <type>onChange</type>
+        <ui_type>0</ui_type>
+        <view/>
+    </sys_script_client>
+</record_update>

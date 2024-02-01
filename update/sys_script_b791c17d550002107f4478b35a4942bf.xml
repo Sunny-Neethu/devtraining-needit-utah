@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>false</action_insert>
+        <action_query>false</action_query>
+        <action_update>true</action_update>
+        <active>false</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_58872_needit_needit</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition/>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>Demo GR2</name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
+
+	// Add your code here
+
+	var gr= new GlideRecord('x_58872_needit_needit');
+	// to make as AND write one after the other
+// 	gr.addQuery('state',15);
+// 	gr.addQuery('short_description','staff');
+	
+	// if we want OR
+	
+//     addor =gr.addQuery('state',3);
+// 	addor.addOrCondition('state',15);
+	
+	// in case only one record then you can do as follows and comment out gr.query();
+	//gr.get(current.sys_id); it will print based on the record in which update happened
+	gr.addEncodedQuery('state=13^priority=4');
+	gr.query();
+	
+	//var countR=gr.getRowCount();
+	
+	while (gr.next()){
+		gs.addInfoMessage("State is Req Prioty low for Incident number"+gr.number +gr.state.getDisplayValue()+ gr.priority.getDisplayValue());
+	}
+	//gs.addInfoMessage("Row count : "+ countR);
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-01-30 19:45:20</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>b791c17d550002107f4478b35a4942bf</sys_id>
+        <sys_name>Demo GR2</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="NeedIt" source="x_58872_needit">6ead8e780f603200cd674f8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="NeedIt">6ead8e780f603200cd674f8ce1050ed1</sys_scope>
+        <sys_update_name>sys_script_b791c17d550002107f4478b35a4942bf</sys_update_name>
+        <template/>
+        <when>after</when>
+    </sys_script>
+    <sys_translated_text action="delete_multiple" query="documentkey=b791c17d550002107f4478b35a4942bf"/>
+</record_update>
